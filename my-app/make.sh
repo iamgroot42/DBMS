@@ -1,2 +1,2 @@
 mvn package
-java -cp target/my-app-1.0-SNAPSHOT.jar com.iiitd.dbms.app.App
+mvn exec:java -Dexec.mainClass="com.iiitd.dbms.app.App"
