@@ -24,19 +24,20 @@ public class App
     	// uncomment this for the first time
     	// User.initTable();
 
-    	// User u = new User("divam" , "dbhebfbeh" , "1231");
-    	// u.save();
+    	User uu = new User("shivam" , "dbhebfbeh" , "1231");
+    	uu.save();
+    	uu.delete();
 
 
     	// to get All the stuff
 
-    	// ArrayList<User> dd = User.getAll();
+    	ArrayList<User> dd = User.getAll();
 
-    	// for( User u : dd)
-    	// {
-    	// 	System.out.println(u.name);
-    	// 	System.out.println(u.userId);
-    	// }
+    	for( User u : dd)
+    	{
+    		System.out.println(u.name);
+    		System.out.println(u.userId);
+    	}
 
 
 
