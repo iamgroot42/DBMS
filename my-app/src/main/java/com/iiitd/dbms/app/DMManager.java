@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 public class DMManager{
 
 
@@ -25,6 +26,7 @@ public class DMManager{
 	    // 	this.username = username;
 	    // 	this.password = password;
 	    // }
+
 	    static void connect()
 	    {
 	    	 try {
@@ -66,6 +68,7 @@ public class DMManager{
 
 	    	statement.executeUpdate(  query ) ;
 	    }
+	    
 
 	    public static void testDB()
 	    {
