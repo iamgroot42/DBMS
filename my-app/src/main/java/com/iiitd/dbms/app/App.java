@@ -11,7 +11,6 @@ import java.sql.Statement;
 public class App 
 {
     public static void main(String[] args) {
-
         /*
         Downloaded.initTable();
         User.initTable();

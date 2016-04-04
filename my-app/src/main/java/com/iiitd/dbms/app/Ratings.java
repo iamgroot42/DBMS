@@ -88,6 +88,27 @@ public class Ratings {
 		       t.userId = resultSet.getString(3);
 		       r.add(t);
 	    	}
+		} catch (Exception e){
+			 e.printStackTrace();
+		}
+    	return r;
+	}
+
+
+	public static String getAvg(String selector)
+	{
+
+		String query = "SELECT * FROM Ratings " + selector;
+		ArrayList<Ratings>  r = new ArrayList<Ratings>();
+		try{
+			ResultSet resultSet = DMManager.execQuery(query);
+	        while (resultSet.next()) {
+		       Ratings t = new Ratings();
+		       t.rating = Integer.parseInt(resultSet.getString(1));
+		       t.appId = resultSet.getString(2);
+		       t.userId = resultSet.getString(3);
+		       r.add(t);
+	    	}
 		} catch(Exception e){
 			 e.printStackTrace();
 		}

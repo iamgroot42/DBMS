@@ -1,5 +1,7 @@
 package com.iiitd.dbms.app;
 
+import static spark.Spark.*;
+
 import java.util.*;
 
 import java.sql.Connection;
@@ -8,19 +10,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class User {
+
+
+
+public class Developer {
 	String name;
 	String passwordHash;
 	String userId;
 	Integer credit;
 
 
-	public User( )
+	public Developer( )
 	{
 		
 	}
 
-	public User( String name, String passwordHash, String userId , Integer credit )
+	public Developer( String name, String passwordHash, String userId , Integer credit )
 	{
 		this.name = name;
 		this.passwordHash = passwordHash;
@@ -33,9 +38,9 @@ public class User {
 	{
 		try{
 			
-			String query = "DROP TABLE User";
+			String query = "DROP TABLE Developer";
 			DMManager.execDDLQuery(  query );
-			query = "CREATE TABLE User (  name VARCHAR(30) ,  passwordHash VARCHAR(30) ,  userId VARCHAR(30)  , credit int  ) ;";
+			query = "CREATE TABLE Developer (  name VARCHAR(30) ,  passwordHash VARCHAR(30) ,  userId VARCHAR(30)  , credit int  ) ;";
 			DMManager.execDDLQuery(  query );
 		}
 		catch(Exception e)
@@ -45,18 +50,23 @@ public class User {
 	
 	}
 
+
+
 	// // take the id and add  it .... if exists then uddate it 
 	public void save()
 	{
+
 		try{
-			if(DMManager.execQuery("SELECT * FROM User WHERE userId = "+ userId).next())
+
+			if(DMManager.execQuery("SELECT * FROM Developer WHERE userId = "+ userId).next())
 			{
-				String query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
+				String query = "UPDATE Developer SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
 				DMManager.execDDLQuery(  query );
 			}else{
-				String query = "INSERT INTO User (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
+				String query = "INSERT INTO Developer (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
 				DMManager.execDDLQuery(  query );
 			}
+
 		}
 		catch(Exception e)
 		{
@@ -67,7 +77,7 @@ public class User {
 	public void delete()
 	{
 		try{
-			String query = "DELETE FROM User WHERE userId = "+ userId;
+			String query = "DELETE FROM Developer WHERE userId = "+ userId;
 			DMManager.execDDLQuery(  query );
 		}
 		catch(Exception e)
@@ -76,35 +86,22 @@ public class User {
 		}
 	}
 
-	public static ArrayList<User> getAll()
+	public static ArrayList<Developer> getAll()
 	{
 		return getAll("");
 	}
 
-	public static User getByID(String userId )
-    {
-        ArrayList<User> aa =  getAll("WHERE userId = '" + userId +"'");
-        
-        // if( aa.size() == 0 )
-        // {
-        //     return NULL ;
-        // }
-
-        return aa.get(0);
-
-    }
-
-	public static ArrayList<User> getAll(String selector)
+	public static ArrayList<Developer> getAll(String selector)
 	{
 
-		String query = "SELECT * FROM User " + selector;
-		ArrayList<User>  r = new ArrayList<User>();
+		String query = "SELECT * FROM Developer " + selector;
+		ArrayList<Developer>  r = new ArrayList<Developer>();
 
 		try{
 			ResultSet resultSet = DMManager.execQuery(query);
 	   
 	        while (resultSet.next()) {
-		       User t = new User();
+		       Developer t = new Developer();
 		       t.name = resultSet.getString(1);
 		       t.passwordHash = resultSet.getString(2);
 		       t.userId = resultSet.getString(3);
@@ -114,7 +111,10 @@ public class User {
 		} catch(Exception e){
 			 e.printStackTrace();
 		}
+
     	return r;
 	}
-	
+
+
 }
+
