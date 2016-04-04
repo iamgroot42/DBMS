@@ -24,9 +24,9 @@ public class App
     	// uncomment this for the first time
     	// User.initTable();
 
-    	User uu = new User("shivam" , "dbhebfbeh" , "1231");
+    	User uu = new User("shivam" , "dbhebfbeh" , "1231" , 676);
     	uu.save();
-    	uu.delete();
+    	// uu.delete();
 
 
     	// to get All the stuff
@@ -37,6 +37,7 @@ public class App
     	{
     		System.out.println(u.name);
     		System.out.println(u.userId);
+            System.out.println(u.credit);
     	}
 
 
