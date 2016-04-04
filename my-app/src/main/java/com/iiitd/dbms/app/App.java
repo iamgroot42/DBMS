@@ -14,13 +14,27 @@ public class App
         
     	User.initTable();
         Ratings.initTable();
+        Category.initTable();
+
+        Category i = new Category("11ef2es" , "dating" , "social");
+        i.save();
 
     	User u = new User("divam" , "dbhebfbeh" , "1231");
     	u.save();
 
-        Ratings r = new Ratings(4,"tamatar","patata");
+        Ratings r = new Ratings(4 , "tamatar" , "patata");
         r.save();
 
+        // to get All the stuff
+        ArrayList<Category> tt = Category.getAll();
+        for (Category zz:tt)
+        {
+            System.out.println(zz.categoryId);
+            System.out.println(zz.title);
+            System.out.println(zz.parent);
+        }
+
+        // to get All the stuff
         ArrayList<Ratings> rr = Ratings.getAll();
         for (Ratings ss:rr)
         {
@@ -31,13 +45,12 @@ public class App
 
     	// to get All the stuff
     	ArrayList<User> dd = User.getAll();
-
     	for( User uu : dd)
     	{
     		System.out.println(uu.name);
     		System.out.println(uu.userId);
     	}
-    	// DMManager.testDB();
-        // get("/hello", (req, res) -> "Hello World");
+    	DMManager.testDB();
+        get("/hello", (req, res) -> "Hello World");
     }
 }
