@@ -12,10 +12,12 @@ public class App
 {
     public static void main(String[] args) {
 
+        /*
         Downloaded.initTable();
-    	User.initTable();
+        User.initTable();
         Ratings.initTable();
         Category.initTable();
+        Interested.initTable();
 
         Downloaded d = new Downloaded("crossy","hvk");
         d.save();
@@ -28,6 +30,17 @@ public class App
 
         Ratings r = new Ratings(4 , "tamatar" , "patata");
         r.save();
+
+        Interested in = new Interested("hvk","ohho");
+        in.save();
+        
+        // to get All the stuff
+        ArrayList<Interested> dd = Interested.getAll();
+        for (Interested pp:dd)
+        {
+            System.out.println(pp.userId);
+            System.out.println(pp.interest);
+        }
         
         // to get All the stuff
         ArrayList<Downloaded> dd = Downloaded.getAll();
@@ -62,6 +75,7 @@ public class App
     		System.out.println(uu.name);
     		System.out.println(uu.userId);
     	}
+        */
 
     	// DMManager.testDB();
         // get("/hello", (req, res) -> "Hello World");
