@@ -44,7 +44,7 @@ public class Category {
 		try{
 			if(DMManager.execQuery("SELECT * FROM Category WHERE categoryId = '" + categoryId + "'").next())
 			{
-				String query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = "+ categoryId;
+				String query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = '"+ categoryId + "'";
 				DMManager.execDDLQuery( query );
 			}else{
 				String query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";

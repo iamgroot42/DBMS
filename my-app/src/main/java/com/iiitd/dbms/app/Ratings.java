@@ -44,7 +44,7 @@ public class Ratings {
 		try{
 			if(DMManager.execQuery("SELECT * FROM Ratings WHERE appId = '" + appId + "' AND userId = '" + userId + "'").next())
 			{
-				String query = "UPDATE Ratings SET rating = '"+rating+"' , appId = '"+appId+"' , userId = '"+userId+"' WHERE appId = "+ appId + " AND userId = " + userId;
+				String query = "UPDATE Ratings SET rating = '"+rating+"' , appId = '"+appId+"' , userId = '"+userId+"' WHERE appId = '"+ appId + "' AND userId = '" + userId + "'";
 				DMManager.execDDLQuery( query );
 			}else{
 				String query = "INSERT INTO Ratings (rating, appId, userId)  VALUES ('"+rating+"','"+appId+"','"+userId+"')";

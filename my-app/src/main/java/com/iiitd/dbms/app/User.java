@@ -43,8 +43,15 @@ public class User {
 	public void save()
 	{
 		try{
-			String query = "INSERT INTO User (name, passwordHash, userId)  VALUES ('"+name+"','"+passwordHash+"','"+userId+"')";
-			DMManager.execDDLQuery(  query );
+
+			if(DMManager.execQuery("SELECT * FROM User WHERE userId = "+ userId).next())
+			{
+				String query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , userId = '"+userId+"' WHERE userId = '"+ userId + "'";
+				DMManager.execDDLQuery(  query );
+			}else{
+				String query = "INSERT INTO User (name, passwordHash, userId)  VALUES ('"+name+"','"+passwordHash+"','"+userId+"')";
+				DMManager.execDDLQuery(  query );
+			}
 		}
 		catch(Exception e)
 		{
@@ -54,7 +61,14 @@ public class User {
 
 	public void delete()
 	{
-
+		try{
+			String query = "DELETE FROM User WHERE userId = "+ userId;
+			DMManager.execDDLQuery(  query );
+		}
+		catch(Exception e)
+		{
+			 e.printStackTrace();
+		}
 	}
 
 	public static ArrayList<User> getAll()
@@ -81,7 +95,7 @@ public class User {
 		} catch(Exception e){
 			 e.printStackTrace();
 		}
-
     	return r;
 	}
+	
 }

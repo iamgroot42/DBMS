@@ -11,10 +11,14 @@ import java.sql.Statement;
 public class App 
 {
     public static void main(String[] args) {
-        
+
+        Downloaded.initTable();
     	User.initTable();
         Ratings.initTable();
         Category.initTable();
+
+        Downloaded d = new Downloaded("crossy","hvk");
+        d.save();
 
         Category i = new Category("11ef2es" , "dating" , "social");
         i.save();
@@ -24,6 +28,14 @@ public class App
 
         Ratings r = new Ratings(4 , "tamatar" , "patata");
         r.save();
+        
+        // to get All the stuff
+        ArrayList<Downloaded> dd = Downloaded.getAll();
+        for (Downloaded pp:dd)
+        {
+            System.out.println(pp.appId);
+            System.out.println(pp.userId);
+        }
 
         // to get All the stuff
         ArrayList<Category> tt = Category.getAll();
@@ -50,7 +62,8 @@ public class App
     		System.out.println(uu.name);
     		System.out.println(uu.userId);
     	}
-    	DMManager.testDB();
-        get("/hello", (req, res) -> "Hello World");
+
+    	// DMManager.testDB();
+        // get("/hello", (req, res) -> "Hello World");
     }
 }
