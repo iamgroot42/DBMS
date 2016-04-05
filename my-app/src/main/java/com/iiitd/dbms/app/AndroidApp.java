@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-import static spark.Spark.*;
 
 import java.util.*;
 

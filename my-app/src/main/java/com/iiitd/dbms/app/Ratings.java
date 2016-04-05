@@ -74,6 +74,20 @@ public class Ratings {
 		return getAll("");
 	}
 
+	public static Ratings getByID(String userId , String appId )
+    {
+        ArrayList<Ratings> aa =  getAll("WHERE userId = '" + userId +"' AND   appId = '" +appId+"'");
+        
+        // if( aa.size() == 0 )
+        // {
+        //     return NULL ;
+        // }
+
+        return aa.get(0);
+
+    }
+
+
 	public static ArrayList<Ratings> getAll(String selector)
 	{
 
@@ -98,21 +112,16 @@ public class Ratings {
 	public static String getAvg(String selector)
 	{
 
-		String query = "SELECT * FROM Ratings " + selector;
-		ArrayList<Ratings>  r = new ArrayList<Ratings>();
+		String query = "SELECT  avg(rating) FROM Ratings " + selector;
 		try{
 			ResultSet resultSet = DMManager.execQuery(query);
 	        while (resultSet.next()) {
-		       Ratings t = new Ratings();
-		       t.rating = Integer.parseInt(resultSet.getString(1));
-		       t.appId = resultSet.getString(2);
-		       t.userId = resultSet.getString(3);
-		       r.add(t);
+		       return resultSet.getString(1);
 	    	}
 		} catch(Exception e){
 			 e.printStackTrace();
 		}
 
-    	return r;
+		return "0";
 	}
 }
