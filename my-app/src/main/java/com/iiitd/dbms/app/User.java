@@ -14,7 +14,6 @@ public class User {
 	String userId;
 	Integer credit;
 
-
 	public User( )
 	{
 		
@@ -52,19 +51,24 @@ public class User {
 	// // take the id and add  it .... if exists then uddate it 
 	public void save()
 	{
+		String query;
 		try{
 			if(DMManager.execQuery("SELECT * FROM User WHERE userId = "+ userId).next())
 			{
-				String query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
-				DMManager.execDDLQuery(  query );
-			}else{
-				String query = "INSERT INTO User (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
-				DMManager.execDDLQuery(  query );
+				query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
+				DMManager.execDDLQuery( query );
 			}
+			return;
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "INSERT INTO User (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
