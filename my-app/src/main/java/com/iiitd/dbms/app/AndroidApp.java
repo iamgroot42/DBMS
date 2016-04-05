@@ -17,7 +17,7 @@ public class AndroidApp {
     String name;
     String developer;
     String appId;
-    String caterory;
+    String category;
     String description;
     String link;
     Integer price;
@@ -28,12 +28,12 @@ public class AndroidApp {
         
     }
 
-    public AndroidApp( String name, String developer, String appId ,String caterory, String description, String link , Integer price )
+    public AndroidApp( String name, String developer, String appId ,String category, String description, String link , Integer price )
     {
         this.name = name;
         this.developer = developer;
         this.appId = appId;
-        this.caterory = caterory;
+        this.category = category;
         this.description = description;
         this.link = link;
         this.price = price;
@@ -48,7 +48,7 @@ public class AndroidApp {
             
             String query = "DROP TABLE AndroidApp";
             DMManager.execDDLQuery(  query );
-            query = "CREATE TABLE AndroidApp (  name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), caterory VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int  ) ;";
+            query = "CREATE TABLE AndroidApp (  name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), category VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int  ) ;";
             DMManager.execDDLQuery(  query );
         }
         catch(Exception e)
@@ -72,7 +72,7 @@ public class AndroidApp {
                 +"name = '"+name
                 +"' , developer = '"+developer
                 +"' , appId = '"+appId
-                +"' , caterory = '"+caterory
+                +"' , category = '"+category
                 +"' , description = '"+description
                 +"' , link = '"+link
                 +"' , price = '"+price
@@ -81,7 +81,7 @@ public class AndroidApp {
                 
                 DMManager.execDDLQuery(  query );
             }else{
-                String query = "INSERT INTO AndroidApp ( name, developer, appId, caterory, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+caterory + "','"+description + "','"+link + "','"+   price + "')";
+                String query = "INSERT INTO AndroidApp ( name, developer, appId, category, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+category + "','"+description + "','"+link + "','"+   price + "')";
                 DMManager.execDDLQuery(  query );
             }
 
@@ -136,7 +136,7 @@ public class AndroidApp {
                t.name = resultSet.getString(1);
                t.developer = resultSet.getString(2);
                t.appId = resultSet.getString(3);
-               t.caterory = resultSet.getString(4);
+               t.category = resultSet.getString(4);
                t.description = resultSet.getString(5);
                t.link = resultSet.getString(6);
                t.price = Integer.parseInt( resultSet.getString(7));

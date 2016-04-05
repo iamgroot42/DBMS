@@ -4,9 +4,9 @@ import java.util.*;
 
 public class ViewApps {
 
-	 public static ArrayList<AndroidApp> getByCategory(String caterory)
+	 public static ArrayList<AndroidApp> getByCategory(String category)
 	 {
-	 	  return AndroidApp.getAll("WHERE caterory = '" + caterory +"'");
+	 	  return AndroidApp.getAll("WHERE category = '" + category +"'");
 	 }
 
 	 public static ArrayList<AndroidApp> searchApps(String query)
