@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-
 import java.util.*;
 
 import java.sql.Connection;
@@ -8,9 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-
-
 
 public class AndroidApp {
 
@@ -21,7 +17,6 @@ public class AndroidApp {
     String description;
     String link;
     Integer price;
-
 
     public AndroidApp( )
     {
@@ -36,26 +31,28 @@ public class AndroidApp {
         this.category = category;
         this.description = description;
         this.link = link;
-        this.price = price;
-
-       
+        this.price = price;  
     }
 
     // initialiilze the DB table
     public static void initTable()
     {
-        try{
-            
-            String query = "DROP TABLE AndroidApp";
-            DMManager.execDDLQuery(  query );
-            query = "CREATE TABLE AndroidApp (  name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), category VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int  ) ;";
-            DMManager.execDDLQuery(  query );
+        String query;
+        try
+        {
+            query = "DROP TABLE AndroidApp";
+            DMManager.execDDLQuery( query );
         }
+        catch(Exception e) {}
+        try
+        {
+            query = "CREATE TABLE AndroidApp ( name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), category VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int ) ;";
+            DMManager.execDDLQuery( query );
+        }   
         catch(Exception e)
         {
-             e.printStackTrace();
+            e.printStackTrace();
         }
-    
     }
 
 
@@ -63,12 +60,11 @@ public class AndroidApp {
     // // take the id and add  it .... if exists then uddate it 
     public void save()
     {
-
+        String query;
         try{
-
             if(DMManager.execQuery("SELECT * FROM AndroidApp WHERE appId = "+ appId).next())
             {
-                String query = "UPDATE AndroidApp SET  "
+                query = "UPDATE AndroidApp SET  "
                 +"name = '"+name
                 +"' , developer = '"+developer
                 +"' , appId = '"+appId
@@ -77,18 +73,20 @@ public class AndroidApp {
                 +"' , link = '"+link
                 +"' , price = '"+price
 
-                +"' WHERE appId = "+ appId;
-                
-                DMManager.execDDLQuery(  query );
-            }else{
-                String query = "INSERT INTO AndroidApp ( name, developer, appId, category, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+category + "','"+description + "','"+link + "','"+   price + "')";
-                DMManager.execDDLQuery(  query );
+                +"' WHERE appId = "+ appId;    
+                DMManager.execDDLQuery( query );
             }
-
+            return;
+        }
+        catch(Exception e) {}
+        try
+        {
+            query = "INSERT INTO AndroidApp ( name, developer, appId, category, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+category + "','"+description + "','"+link + "','"+   price + "')";
+            DMManager.execDDLQuery( query );
         }
         catch(Exception e)
         {
-             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

@@ -38,7 +38,7 @@ public class TestForm{
         Display d = new Display();
         Shell s = new Shell(d);
 
-        s.setSize(800, 500);
+        s.setSize(500, 500);
         
         s.setText("App-Store");
         s.setLayout(new FillLayout());
@@ -48,42 +48,37 @@ public class TestForm{
         TableColumn tc1 = new TableColumn(t, SWT.CENTER);
         TableColumn tc2 = new TableColumn(t, SWT.CENTER);
         TableColumn tc3 = new TableColumn(t, SWT.CENTER);
-        TableColumn tc4 = new TableColumn(t, SWT.CENTER);
-        TableColumn tc5 = new TableColumn(t, SWT.CENTER);
-        TableColumn tc6 = new TableColumn(t, SWT.CENTER);
-        TableColumn tc7 = new TableColumn(t, SWT.CENTER);
-        tc1.setText("Name");
-        tc2.setText("Developer");
-        tc3.setText("AppId");
-        tc4.setText("Category");
-        tc5.setText("Description");
-        tc6.setText("Link");
-        tc7.setText("Price");
+        tc1.setText("AppId");
+        tc2.setText("Name");
+        tc3.setText("Category");
         tc1.setWidth(70);
         tc2.setWidth(90);
         tc3.setWidth(80);
-        tc4.setWidth(80);
-        tc5.setWidth(150);
-        tc6.setWidth(100);
-        tc7.setWidth(80);
         t.setHeaderVisible(true);
 
-        AndroidApp ap = new AndroidApp("Po", "Ta", "To","Olla","Dating","https://yts.ag",55);
-        ArrayList<AndroidApp> l = new ArrayList<AndroidApp>();
+        //One time:
+        // try
+        // {
+        //     AndroidApp.initTable();   
+        // }
+        // catch(Exception e)
+        // {
+        //     System.out.println("AndroidApp table already exists");
+        // }
 
-        for(int i=0;i<50;i++)
-        {
-            l.add(ap);    
-        }
+        // To get some data:
+        AndroidApp ap = new AndroidApp("Polo", "Ta", "Tyo","Olla","Dating","https://yts.ag",55);
+        ap.save();
 
-        for(int i=0;i<50;i++)
+        ArrayList<AndroidApp> l = AndroidApp.getAll();
+        
+        
+        for (AndroidApp te:l)
         {
-            AndroidApp te = l.get(i);
             TableItem item = new TableItem(t, SWT.NONE);
-            item.setText(new String[] { te.name, te.developer, te.appId,te.category,te.description,te.link,Integer.toString(te.price)});    
+            item.setText(new String[] { te.appId, te.name, te.category});    
         } 
         
-
         s.open();
         while (!s.isDisposed()) {
           if (!d.readAndDispatch())

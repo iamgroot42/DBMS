@@ -28,28 +28,41 @@ public class Category {
 	// initialiilze the DB table
 	public static void initTable()
 	{
-		try{
-			String query = "CREATE TABLE Category ( categoryId VARCHAR(30) ,  title VARCHAR(50) ,  parent VARCHAR(30) ) ;";
+		String query;
+		try
+		{
+			query = "DROP TABLE Category";
+            DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "CREATE TABLE Category ( categoryId VARCHAR(30) ,  title VARCHAR(50) ,  parent VARCHAR(30) ) ;";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
-		{
-			 e.printStackTrace();
-		}
+        {
+            e.printStackTrace();
+        }
 	}
 
 	// take the id and add  it .... if exists then update it 
 	public void save()
 	{
+		String query;
 		try{
 			if(DMManager.execQuery("SELECT * FROM Category WHERE categoryId = '" + categoryId + "'").next())
 			{
-				String query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = '"+ categoryId + "'";
-				DMManager.execDDLQuery( query );
-			}else{
-				String query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";
+				query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = '"+ categoryId + "'";
 				DMManager.execDDLQuery( query );
 			}
+			return;
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{

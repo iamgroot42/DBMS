@@ -31,18 +31,22 @@ public class User {
 	// initialiilze the DB table
 	public static void initTable()
 	{
-		try{
-			
-			String query = "DROP TABLE User";
-			DMManager.execDDLQuery(  query );
+		String query;
+		try
+		{
+			query = "DROP TABLE User";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e){}
+		try
+		{
 			query = "CREATE TABLE User (  name VARCHAR(30) ,  passwordHash VARCHAR(30) ,  userId VARCHAR(30)  , credit int  ) ;";
-			DMManager.execDDLQuery(  query );
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
-	
 	}
 
 	// // take the id and add  it .... if exists then uddate it 

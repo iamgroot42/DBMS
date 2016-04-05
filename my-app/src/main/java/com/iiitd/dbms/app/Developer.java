@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-
 import java.util.*;
 
 import java.sql.Connection;
@@ -9,15 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-
-
 public class Developer {
 	String name;
 	String passwordHash;
 	String userId;
 	Integer credit;
-
 
 	public Developer( )
 	{
@@ -35,41 +30,43 @@ public class Developer {
 	// initialiilze the DB table
 	public static void initTable()
 	{
+		String query;
 		try{
-			
-			String query = "DROP TABLE Developer";
-			DMManager.execDDLQuery(  query );
+			query = "DROP TABLE Developer";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try
+		{
 			query = "CREATE TABLE Developer (  name VARCHAR(30) ,  passwordHash VARCHAR(30) ,  userId VARCHAR(30)  , credit int  ) ;";
-			DMManager.execDDLQuery(  query );
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
 			 e.printStackTrace();
 		}
-	
 	}
-
-
 
 	// // take the id and add  it .... if exists then uddate it 
 	public void save()
 	{
-
+		String query;
 		try{
-
 			if(DMManager.execQuery("SELECT * FROM Developer WHERE userId = "+ userId).next())
 			{
-				String query = "UPDATE Developer SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
-				DMManager.execDDLQuery(  query );
-			}else{
-				String query = "INSERT INTO Developer (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
-				DMManager.execDDLQuery(  query );
+				query = "UPDATE Developer SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
+				DMManager.execDDLQuery( query );
 			}
-
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "INSERT INTO Developer (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
