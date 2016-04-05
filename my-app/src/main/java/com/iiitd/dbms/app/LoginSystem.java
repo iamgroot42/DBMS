@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-import static spark.Spark.*;
 
 import java.util.*;
 
@@ -45,6 +44,13 @@ public class LoginSystem {
 		User uu = new User(name , passwordHash , userId , 0 );
 		uu.save();
 
+	}
+
+	public static void addCredit( int money )
+	{
+		User loggedInUser = User.getByID(loginUser );
+		loggedInUser.credit += money;
+		loggedInUser.save();
 	}
 
 }

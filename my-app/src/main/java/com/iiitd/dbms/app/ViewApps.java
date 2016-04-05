@@ -34,6 +34,11 @@ public class ViewApps {
 	 	  return AndroidApp.getAll(""); // thsi is not ready either
 	 }
 
+	 public static AndroidApp getById(String appId )
+	 {
+	 	return AndroidApp.getByID(appId);
+	 }
+
 	 public static void purchaseApp( String appId )
 	 {
 	 	if(!(LoginSystem.isLoggedIn))
@@ -60,5 +65,11 @@ public class ViewApps {
 
 
 	 }
+
+
+
+	 // #todo downloads and stats
+
+
 
 }
