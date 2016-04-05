@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-
 import java.util.*;
 
 import java.sql.Connection;
@@ -10,9 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-
 public class LoginSystem {
-
 
 	public static Boolean isLoggedIn = false;
 	public static String loginUser;
@@ -43,7 +40,6 @@ public class LoginSystem {
 
 		User uu = new User(name , passwordHash , userId , 0 );
 		uu.save();
-
 	}
 
 	public static void addCredit( int money )
