@@ -8,27 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-
-
 public class App 
 {
 
-    
-
-
     public static void main(String[] args) {
 
-
         TestForm.startForm();
-        
-        
-
         /*
         Downloaded.initTable();
         User.initTable();
@@ -96,8 +86,5 @@ public class App
 
     	// DMManager.testDB();
         // get("/hello", (req, res) -> "Hello World");
-
-
-
     }
 }

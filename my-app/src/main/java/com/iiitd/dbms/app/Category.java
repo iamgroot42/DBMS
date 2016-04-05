@@ -31,7 +31,7 @@ public class Category {
 		String query;
 		try
 		{
-			query = "DROP TABLE Category";
+			query = "DROP TABLE Category;";
             DMManager.execDDLQuery( query );
 		}
 		catch(Exception e) {}

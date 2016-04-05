@@ -113,9 +113,7 @@ public class AndroidApp {
         // {
         //     return NULL ;
         // }
-
         return aa.get(0);
-
     }
 
     public static ArrayList<AndroidApp> getAll(String selector)
@@ -142,10 +140,7 @@ public class AndroidApp {
         } catch(Exception e){
              e.printStackTrace();
         }
-
         return r;
     }
 
-
 }
-

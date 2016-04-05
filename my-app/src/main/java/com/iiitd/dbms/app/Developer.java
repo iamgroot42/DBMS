@@ -32,7 +32,7 @@ public class Developer {
 	{
 		String query;
 		try{
-			query = "DROP TABLE Developer";
+			query = "DROP TABLE Developer;";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e) {}
