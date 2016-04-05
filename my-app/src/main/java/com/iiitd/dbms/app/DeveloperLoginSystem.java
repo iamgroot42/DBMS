@@ -8,9 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 public class DeveloperLoginSystem {
-
 
 	public static Boolean isLoggedIn = false;
 	public static String loginUser;
@@ -38,10 +36,8 @@ public class DeveloperLoginSystem {
 			System.out.println("you registered nigga");
 			return;
 		}
-
 		Developer uu = new Developer(name , passwordHash , userId , 0 );
 		uu.save();
-
 	}
 
 }

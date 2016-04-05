@@ -26,8 +26,14 @@ public class Interested {
 	// initialiilze the DB table
 	public static void initTable()
 	{
+		String query;
 		try{
-			String query = "CREATE TABLE Interested ( userId VARCHAR(30) ,  interest VARCHAR(50) ) ;";
+			query = "DROP TABLE Interested;";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try{
+			query = "CREATE TABLE Interested ( userId VARCHAR(30) ,  interest VARCHAR(50) ) ;";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
@@ -39,19 +45,24 @@ public class Interested {
 	// take the id and add  it .... if exists then update it 
 	public void save()
 	{
+		String query;
 		try{
 			if(DMManager.execQuery("SELECT * FROM Interested WHERE userId = '" + userId + "' AND interest = '" + interest + "'").next())
 			{
-				String query = "UPDATE Interested SET userId = '"+userId+"' , interest = '"+interest+"' WHERE userId = '"+ userId + "' AND interest = '" + interest + "'";
-				DMManager.execDDLQuery( query );
-			}else{
-				String query = "INSERT INTO Interested (userId, interest)  VALUES ('"+userId+"','"+interest+"')";
+				query = "UPDATE Interested SET userId = '"+userId+"' , interest = '"+interest+"' WHERE userId = '"+ userId + "' AND interest = '" + interest + "'";
 				DMManager.execDDLQuery( query );
 			}
+			return;
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "INSERT INTO Interested (userId, interest)  VALUES ('"+userId+"','"+interest+"')";
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 

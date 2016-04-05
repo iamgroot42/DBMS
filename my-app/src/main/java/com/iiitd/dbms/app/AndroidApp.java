@@ -40,7 +40,7 @@ public class AndroidApp {
         String query;
         try
         {
-            query = "DROP TABLE AndroidApp";
+            query = "DROP TABLE AndroidApp;";
             DMManager.execDDLQuery( query );
         }
         catch(Exception e) {}
@@ -54,8 +54,6 @@ public class AndroidApp {
             e.printStackTrace();
         }
     }
-
-
 
     // // take the id and add  it .... if exists then uddate it 
     public void save()
