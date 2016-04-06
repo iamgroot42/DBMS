@@ -18,6 +18,11 @@ public class App
 
     public static void main(String[] args) {
 
+        // To get some data:
+        AndroidApp ap = new AndroidApp("Polo", "Ta", "Tyo","Olla","Dating","https://yts.ag",55);
+        ap.save();
+
+        AppInfoPage.startForm(ap);
         TestForm.startForm();
         /*
         Downloaded.initTable();
