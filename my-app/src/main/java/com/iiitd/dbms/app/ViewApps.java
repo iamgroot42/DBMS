@@ -4,9 +4,9 @@ import java.util.*;
 
 public class ViewApps {
 
-	 public static ArrayList<AndroidApp> getByCategory(String caterory)
+	 public static ArrayList<AndroidApp> getByCategory(String category)
 	 {
-	 	  return AndroidApp.getAll("WHERE caterory = '" + caterory +"'");
+	 	  return AndroidApp.getAll("WHERE category = '" + category +"'");
 	 }
 
 	 public static ArrayList<AndroidApp> searchApps(String query)
@@ -21,17 +21,17 @@ public class ViewApps {
 
 	 public static ArrayList<AndroidApp> getLiked(String user)
 	 {
-	 	  return AndroidApp.getAll("WHERE developer = '" + user +"'"); // thsi is not ready
+	 	  return AndroidApp.getAll("WHERE developer = '" + user +"'"); // this is not ready
 	 }
 
 	 public static ArrayList<AndroidApp> getTopApps()
 	 {
-	 	  return AndroidApp.getAll(""); // thsi is not ready either
+	 	  return AndroidApp.getAll(""); // this is not ready either
 	 }
 
 	 public static ArrayList<AndroidApp> getPurchased(String user)
 	 {
-	 	  return AndroidApp.getAll(""); // thsi is not ready either
+	 	  return AndroidApp.getAll(""); // this is not ready either
 	 }
 
 	 public static AndroidApp getById(String appId )

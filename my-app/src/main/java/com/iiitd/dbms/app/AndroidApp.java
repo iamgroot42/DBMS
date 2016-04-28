@@ -1,6 +1,5 @@
 package com.iiitd.dbms.app;
 
-
 import java.util.*;
 
 import java.sql.Connection;
@@ -9,93 +8,87 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-
-
 public class AndroidApp {
 
     String name;
     String developer;
     String appId;
-    String caterory;
+    String category;
     String description;
     String link;
     Integer price;
-
 
     public AndroidApp( )
     {
         
     }
 
-    public AndroidApp( String name, String developer, String appId ,String caterory, String description, String link , Integer price )
+    public AndroidApp( String name, String developer, String appId ,String category, String description, String link , Integer price )
     {
         this.name = name;
         this.developer = developer;
         this.appId = appId;
-        this.caterory = caterory;
+        this.category = category;
         this.description = description;
         this.link = link;
-        this.price = price;
-
-       
+        this.price = price;  
     }
 
     // initialiilze the DB table
     public static void initTable()
     {
-        try{
-            
-            String query = "DROP TABLE AndroidApp";
-            DMManager.execDDLQuery(  query );
-            query = "CREATE TABLE AndroidApp (  name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), caterory VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int  ) ;";
-            DMManager.execDDLQuery(  query );
+        String query;
+        try
+        {
+            query = "DROP TABLE AndroidApp;";
+            DMManager.execDDLQuery( query );
         }
+        catch(Exception e) {}
+        try
+        {
+            query = "CREATE TABLE AndroidApp ( name VARCHAR(30), developer VARCHAR(30), appId VARCHAR(30), category VARCHAR(30), description VARCHAR(30), link VARCHAR(30), price int ) ;";
+            DMManager.execDDLQuery( query );
+        }   
         catch(Exception e)
         {
-             e.printStackTrace();
+            e.printStackTrace();
         }
-    
     }
 
-
-
-    // // take the id and add  it .... if exists then uddate it 
+    // take the id and add  it .... if exists then update it 
     public void save()
     {
-
+        String query;
         try{
-
-            if(DMManager.execQuery("SELECT * FROM AndroidApp WHERE appId = "+ appId).next())
+            if(DMManager.execQuery("SELECT * FROM AndroidApp WHERE appId = '"+ appId +"'").next())
             {
-                String query = "UPDATE AndroidApp SET  "
+                query = "UPDATE AndroidApp SET  "
                 +"name = '"+name
                 +"' , developer = '"+developer
                 +"' , appId = '"+appId
-                +"' , caterory = '"+caterory
+                +"' , category = '"+category
                 +"' , description = '"+description
                 +"' , link = '"+link
                 +"' , price = '"+price
 
-                +"' WHERE appId = "+ appId;
-                
-                DMManager.execDDLQuery(  query );
-            }else{
-                String query = "INSERT INTO AndroidApp ( name, developer, appId, caterory, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+caterory + "','"+description + "','"+link + "','"+   price + "')";
-                DMManager.execDDLQuery(  query );
+                +"' WHERE appId = '"+ appId + "'";    
+                DMManager.execDDLQuery( query );
             }
-
+           else{
+             query = "INSERT INTO AndroidApp ( name, developer, appId, category, description, link,  price )  VALUES ('"+name + "','"+developer + "','"+appId + "','"+category + "','"+description + "','"+link + "','"+   price + "')";
+            DMManager.execDDLQuery( query );
+           }
         }
-        catch(Exception e)
-        {
-             e.printStackTrace();
+        catch(Exception e) {
+              e.printStackTrace();
         }
+       
     }
 
     public void delete()
     {
         try{
-            String query = "DELETE FROM AndroidApp WHERE appId = "+ appId;
+            String query = "DELETE FROM AndroidApp WHERE appId = '"+ appId + "'";
             DMManager.execDDLQuery(  query );
         }
         catch(Exception e)
@@ -117,9 +110,7 @@ public class AndroidApp {
         // {
         //     return NULL ;
         // }
-
         return aa.get(0);
-
     }
 
     public static ArrayList<AndroidApp> getAll(String selector)
@@ -136,7 +127,7 @@ public class AndroidApp {
                t.name = resultSet.getString(1);
                t.developer = resultSet.getString(2);
                t.appId = resultSet.getString(3);
-               t.caterory = resultSet.getString(4);
+               t.category = resultSet.getString(4);
                t.description = resultSet.getString(5);
                t.link = resultSet.getString(6);
                t.price = Integer.parseInt( resultSet.getString(7));
@@ -146,10 +137,7 @@ public class AndroidApp {
         } catch(Exception e){
              e.printStackTrace();
         }
-
         return r;
     }
 
-
 }
-

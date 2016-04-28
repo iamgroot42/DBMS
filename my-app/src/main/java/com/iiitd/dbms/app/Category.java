@@ -28,8 +28,59 @@ public class Category {
 	// initialiilze the DB table
 	public static void initTable()
 	{
+		String query;
+		try
+		{
+			query = "DROP TABLE Category;";
+            DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "CREATE TABLE Category ( categoryId VARCHAR(30) ,  title VARCHAR(50) ,  parent VARCHAR(30) ) ;";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+	}
+
+	// take the id and add  it .... if exists then update it 
+	public void save()
+	{
+		String query;
 		try{
-			String query = "CREATE TABLE Category ( categoryId VARCHAR(30) ,  title VARCHAR(50) ,  parent VARCHAR(30) ) ;";
+			if(DMManager.execQuery("SELECT * FROM Category WHERE categoryId = '" + categoryId + "'").next())
+			{
+				query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = '"+ categoryId + "'";
+				DMManager.execDDLQuery( query );
+			}
+			else
+			{
+				query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";
+				DMManager.execDDLQuery( query );
+			}
+			return;
+		}
+		catch(Exception e) {
+			 e.printStackTrace();
+		}
+		// try
+		// {
+		// 	query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";
+		// 	DMManager.execDDLQuery( query );
+		// }
+		// catch(Exception e)
+		// {
+		// 	 e.printStackTrace();
+		// }
+	}
+
+	public void delete()
+	{
+		try{
+			String query = "DELETE FROM Categpry WHERE categoryId = '"+ categoryId  + "'";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
@@ -37,37 +88,6 @@ public class Category {
 			 e.printStackTrace();
 		}
 	}
-
-	// take the id and add  it .... if exists then update it 
-	public void save()
-	{
-		try{
-			if(DMManager.execQuery("SELECT * FROM Category WHERE categoryId = '" + categoryId + "'").next())
-			{
-				String query = "UPDATE Category SET categoryId = '"+categoryId+"' , title = '"+title+"' , parent = '"+parent+"' WHERE categoryId = '"+ categoryId + "'";
-				DMManager.execDDLQuery( query );
-			}else{
-				String query = "INSERT INTO Category (categoryId, title, parent)  VALUES ('"+categoryId+"','"+title+"','"+parent+"')";
-				DMManager.execDDLQuery( query );
-			}
-		}
-		catch(Exception e)
-		{
-			 e.printStackTrace();
-		}
-	}
-
-	// public void delete()
-	// {
-	// 	try{
-	// 		String query = "DELETE FROM User WHERE title = "+ title + " AND parent = " + parent;
-	// 		DMManager.execDDLQuery( query );
-	// 	}
-	// 	catch(Exception e)
-	// 	{
-	// 		 e.printStackTrace();
-	// 	}
-	// }
 
 	public static ArrayList<Category> getAll()
 	{

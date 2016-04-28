@@ -26,8 +26,16 @@ public class Downloaded {
 	// initialiilze the DB table
 	public static void initTable()
 	{
-		try{
-			String query = "CREATE TABLE Downloaded ( userId VARCHAR(30) ,  appId VARCHAR(30) ) ;";
+		String query;
+		try
+		{
+			query = "DROP TABLE Downloaded;";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "CREATE TABLE Downloaded ( userId VARCHAR(30) ,  appId VARCHAR(30) ) ;";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
@@ -39,20 +47,32 @@ public class Downloaded {
 	// take the id and add  it .... if exists then update it 
 	public void save()
 	{
-		try{
+		String query;
+		try
+		{
 			if(DMManager.execQuery("SELECT * FROM Downloaded WHERE userId = '" + userId + "' AND appId = '" + appId + "'").next())
 			{
-				String query = "UPDATE Downloaded SET userId = '"+userId+"' , appId = '"+appId+"' WHERE userId = '"+ userId + "' AND appId = '" + appId + "'";
-				DMManager.execDDLQuery( query );
-			}else{
-				String query = "INSERT INTO Downloaded (userId, appId)  VALUES ('"+userId+"','"+appId+"')";
+				query = "UPDATE Downloaded SET userId = '"+userId+"' , appId = '"+appId+"' WHERE userId = '"+ userId + "' AND appId = '" + appId + "'";
 				DMManager.execDDLQuery( query );
 			}
+			else{
+				query = "INSERT INTO Downloaded (userId, appId)  VALUES ('"+userId+"','"+appId+"')";
+				DMManager.execDDLQuery( query );
+			}
+			return;
 		}
-		catch(Exception e)
-		{
-			 e.printStackTrace();
+		catch(Exception e) {
+			e.printStackTrace();
 		}
+		// try
+		// {
+		// 	query = "INSERT INTO Downloaded (userId, appId)  VALUES ('"+userId+"','"+appId+"')";
+		// 	DMManager.execDDLQuery( query );
+		// }
+		// catch(Exception e)
+		// {
+		// 	 e.printStackTrace();
+		// }
 	}
 
 	public void delete()

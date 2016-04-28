@@ -4,7 +4,6 @@ import java.util.*;
 
 public class ViewRatings {
 
-
 	public static ArrayList<Ratings> getRatingsOfApp(String appId)
 	{
 		return Ratings.getAll("WHERE appId = '" +  appId +"'");
@@ -26,6 +25,5 @@ public class ViewRatings {
 		Ratings r =  Ratings.getByID( userId , appId );
 		r.save();
 	}
-
 
 }

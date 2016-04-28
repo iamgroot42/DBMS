@@ -28,8 +28,16 @@ public class Ratings {
 	// initialiilze the DB table
 	public static void initTable()
 	{
-		try{
-			String query = "CREATE TABLE Ratings ( rating INT ,  appId VARCHAR(30) ,  userId VARCHAR(30) ) ;";
+		String query;
+		try
+		{
+			query = "DROP TABLE Ratings;";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e) {}
+		try
+		{
+			query = "CREATE TABLE Ratings ( rating INT ,  appId VARCHAR(30) ,  userId VARCHAR(30) ) ;";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
@@ -41,26 +49,37 @@ public class Ratings {
 	// take the id and add  it .... if exists then update it 
 	public void save()
 	{
+		String query;
 		try{
 			if(DMManager.execQuery("SELECT * FROM Ratings WHERE appId = '" + appId + "' AND userId = '" + userId + "'").next())
 			{
-				String query = "UPDATE Ratings SET rating = '"+rating+"' , appId = '"+appId+"' , userId = '"+userId+"' WHERE appId = '"+ appId + "' AND userId = '" + userId + "'";
+				query = "UPDATE Ratings SET rating = '"+rating+"' , appId = '"+appId+"' , userId = '"+userId+"' WHERE appId = '"+ appId + "' AND userId = '" + userId + "'";
 				DMManager.execDDLQuery( query );
-			}else{
-				String query = "INSERT INTO Ratings (rating, appId, userId)  VALUES ('"+rating+"','"+appId+"','"+userId+"')";
+			}
+			else
+			{
+				query = "INSERT INTO Ratings (rating, appId, userId)  VALUES ('"+rating+"','"+appId+"','"+userId+"')";
 				DMManager.execDDLQuery( query );
 			}
 		}
-		catch(Exception e)
-		{
-			 e.printStackTrace();
+		catch(Exception e) {
+			e.printStackTrace();
 		}
+		// try
+		// {
+		// 	query = "INSERT INTO Ratings (rating, appId, userId)  VALUES ('"+rating+"','"+appId+"','"+userId+"')";
+		// 	DMManager.execDDLQuery( query );
+		// }
+		// catch(Exception e)
+		// {
+		// 	e.printStackTrace();
+		// }
 	}
 
 	public void delete()
 	{
 		try{
-			String query = "DELETE FROM User WHERE appId = "+ appId + " AND userId = " + userId;
+			String query = "DELETE FROM User WHERE appId = '"+ appId + "'' AND userId = '" + userId + "'";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)

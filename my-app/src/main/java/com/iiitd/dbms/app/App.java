@@ -24,10 +24,34 @@ public class App
 
     public static void main(String[] args) {
 
-        TestForm.init();
+       
+        
+        
+        // Downloaded.initTable();
+        // User.initTable();
+        // Ratings.initTable();
+        // Category.initTable();
+        // Interested.initTable();
+        // Developer.initTable();
+        // AndroidApp.initTable();
+
+        // DMManager.testDB();
+
+
+        User u = new User("divam" , "qwerty" , "1231" , 100 );
+        u.save();
+
+        u = new User("qq" , "qq" , "qq" , 100 );
+        u.save();
+
+
+        Developer d = new Developer("qq" , "qq" , "qq" , 100 );
+        d.save();
+
+
+         TestForm.init();
         TestForm.startForm();
-        
-        
+
 
         /*
         Downloaded.initTable();

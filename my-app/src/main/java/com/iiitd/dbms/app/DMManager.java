@@ -57,6 +57,8 @@ public class DMManager{
 	    	if(!(isConnected))
 	    		connect();
 
+	    	System.out.println( "QUERYY : " + query );
+
 	    	return statement.executeQuery(  query ) ;
 	    }
 
@@ -65,6 +67,8 @@ public class DMManager{
 
 	    	if(!(isConnected))
 	    		connect();
+
+	    	System.out.println( "QUERYY : " + query );
 
 	    	statement.executeUpdate(  query ) ;
 	    }

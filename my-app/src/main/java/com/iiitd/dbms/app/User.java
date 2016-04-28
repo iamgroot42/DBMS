@@ -14,7 +14,6 @@ public class User {
 	String userId;
 	Integer credit;
 
-
 	public User( )
 	{
 		
@@ -31,43 +30,51 @@ public class User {
 	// initialiilze the DB table
 	public static void initTable()
 	{
-		try{
-			
-			String query = "DROP TABLE User";
-			DMManager.execDDLQuery(  query );
+		String query;
+		try
+		{
+			query = "DROP TABLE User";
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e){}
+		try
+		{
 			query = "CREATE TABLE User (  name VARCHAR(30) ,  passwordHash VARCHAR(30) ,  userId VARCHAR(30)  , credit int  ) ;";
-			DMManager.execDDLQuery(  query );
+			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
 		{
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
-	
 	}
 
-	// // take the id and add  it .... if exists then uddate it 
+	// take the id and add  it .... if exists then update it 
 	public void save()
 	{
+		String query;
 		try{
-			if(DMManager.execQuery("SELECT * FROM User WHERE userId = "+ userId).next())
+			if(DMManager.execQuery("SELECT * FROM User WHERE userId = '"+ userId + "'").next())
 			{
-				String query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = "+ userId;
-				DMManager.execDDLQuery(  query );
-			}else{
-				String query = "INSERT INTO User (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
-				DMManager.execDDLQuery(  query );
+				query = "UPDATE User SET  name = '"+name+"' , passwordHash = '"+passwordHash+"' , credit = '"+credit+"' , userId = '"+userId+"' WHERE userId = '"+ userId + "'";
+				DMManager.execDDLQuery( query );
 			}
+			else
+			{
+				query = "INSERT INTO User (name, passwordHash, userId , credit )  VALUES ('"+name+"','"+passwordHash+"','"+userId+"','"+credit+"')";
+				DMManager.execDDLQuery( query );
+			}
+			return;
 		}
-		catch(Exception e)
-		{
-			 e.printStackTrace();
+		catch(Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
 
 	public void delete()
 	{
 		try{
-			String query = "DELETE FROM User WHERE userId = "+ userId;
+			String query = "DELETE FROM User WHERE userId = '"+ userId + "'";
 			DMManager.execDDLQuery(  query );
 		}
 		catch(Exception e)
