@@ -10,33 +10,165 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 
 public class TestForm{
 
-    private void centerWindow(Shell shell) {
 
-        Rectangle bds = shell.getDisplay().getBounds();
+    // THE CODE FOR THE UI BACKBONE
+    static Display display;
 
-        Point p = shell.getSize();
 
-        int nLeft = (bds.width - p.x) / 2;
-        int nTop = (bds.height - p.y) / 2;
-
-        shell.setBounds(nLeft, nTop, p.x, p.y);
+    public static void init()
+    {
+        display =  new Display();
     }
+
+    static void attachShell(Shell shell)
+    {
+        shell.open();
+        while (!shell.isDisposed()) {
+          if (!display.readAndDispatch())
+            display.sleep();
+        }
+       // display.dispose();
+    }
+
+
+
+
+
+
+    // ACTUAL FORMS
+
+
+    public static void showRegisterPage()
+    {
+         Shell shell = new Shell(display);
+        shell.setSize(300, 200);
+        shell.setText("Register");
+        shell.setLayout(new GridLayout(2 , true ));
+
+        Label label1=new Label(shell, SWT.NULL);
+        label1.setText("Name: ");
+
+        final Text textBoxName = new Text(shell, SWT.SHADOW_IN);
+
+        label1=new Label(shell, SWT.NULL);
+        label1.setText("Username: ");
+
+
+        final Text textBoxUsername = new Text(shell, SWT.SHADOW_IN);
+
+        label1=new Label(shell, SWT.NULL);
+        label1.setText("Password: ");
+
+
+        final Text textBoxPassword = new Text(shell, SWT.SHADOW_IN);
+
+        final Button registerButton = new Button(shell, SWT.PUSH);
+        registerButton.setText("Register");
+
+
+        registerButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                ShowLoginPage();
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+         });
+
+
+        attachShell( shell);
+
+    }
+
+
+    public static void ShowLoginPage()
+    {
+        // Display display = new Display();
+        Shell shell = new Shell(display);
+        shell.setSize(300, 200);
+        shell.setText("Login");
+        shell.setLayout(new GridLayout(2 , true ));
+
+
+
+        
+        Label label1=new Label(shell, SWT.NULL);
+        label1.setText("Username: ");
+        final Text textBoxUsername = new Text(shell, SWT.SHADOW_IN);
+        label1=new Label(shell, SWT.NULL);
+        label1.setText("Passowrd: ");
+        final Text textBoxPassword = new Text(shell, SWT.SHADOW_IN);
+
+        final Button registerButton = new Button(shell, SWT.PUSH);
+        registerButton.setText("Register");
+
+        final Button loginButton = new Button(shell, SWT.PUSH);
+        loginButton.setText("Login");
+
+
+
+         loginButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                ShowLoginPage();
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+         });
+
+
+        
+
+
+
+         registerButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showRegisterPage();
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+         });
+
+
+         attachShell( shell);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     @SuppressWarnings("unused")
     public static void startForm() {
     
-        Display display = new Display();
+        // Display display = new Display();
         Shell shell = new Shell(display);
         shell.setSize(300, 200);
         shell.setText("Button Example");
         shell.setLayout(new RowLayout());
+
+
+
+
 
         final Button button = new Button(shell, SWT.PUSH);
         button.setText("Click Me");
@@ -45,19 +177,17 @@ public class TestForm{
 
         button.addSelectionListener(new SelectionListener() {
 
-         public void widgetSelected(SelectionEvent event) {
-            text.setText("Potato!");
-          }
+             public void widgetSelected(SelectionEvent event) {
+                text.setText("Potato!");
+                ShowLoginPage();
+              }
 
-          public void widgetDefaultSelected(SelectionEvent event) {
-            text.setText("Tomato!");
-          }
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
         });
-        shell.open();
-        while (!shell.isDisposed()) {
-          if (!display.readAndDispatch())
-            display.sleep();
-        }
-        display.dispose();
+
+
+        attachShell( shell);
+
     }
 }

@@ -24,7 +24,7 @@ public class App
 
     public static void main(String[] args) {
 
-
+        TestForm.init();
         TestForm.startForm();
         
         
