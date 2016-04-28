@@ -70,17 +70,17 @@ public class Category {
 		}
 	}
 
-	// public void delete()
-	// {
-	// 	try{
-	// 		String query = "DELETE FROM User WHERE title = "+ title + " AND parent = " + parent;
-	// 		DMManager.execDDLQuery( query );
-	// 	}
-	// 	catch(Exception e)
-	// 	{
-	// 		 e.printStackTrace();
-	// 	}
-	// }
+	public void delete()
+	{
+		try{
+			String query = "DELETE FROM Categpry WHERE categoryId = "+ categoryId ;
+			DMManager.execDDLQuery( query );
+		}
+		catch(Exception e)
+		{
+			 e.printStackTrace();
+		}
+	}
 
 	public static ArrayList<Category> getAll()
 	{

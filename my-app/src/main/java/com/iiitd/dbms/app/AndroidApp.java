@@ -55,7 +55,7 @@ public class AndroidApp {
         }
     }
 
-    // // take the id and add  it .... if exists then uddate it 
+    // take the id and add  it .... if exists then update it 
     public void save()
     {
         String query;

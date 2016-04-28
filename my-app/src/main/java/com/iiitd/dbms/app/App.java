@@ -21,9 +21,9 @@ public class App
         // To get some data:
         AndroidApp ap = new AndroidApp("Polo", "Ta", "Tyo","Olla","Dating","https://yts.ag",55);
         ap.save();
-
-        AppInfoPage.startForm(ap);
-        TestForm.startForm();
+        
+        GenerateTable.create(AndroidApp.getAll(),"All apps");
+        
         /*
         Downloaded.initTable();
         User.initTable();
