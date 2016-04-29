@@ -19,9 +19,9 @@ public class ViewApps {
 	 	  return AndroidApp.getAll("WHERE developer = '" + developer +"'");
 	 }
 
-	 public static ArrayList<AndroidApp> getLiked(String user)
+	 public static ArrayList<AndroidApp> getLiked(String userId)
 	 {
-	 	  return AndroidApp.getAll("WHERE developer = '" + user +"'"); // this is not ready
+	 	  return AndroidApp.getAll("where  appId in  (  select interest from  Interested where  userId =  '"+userId+"'  ) ");
 	 }
 
 	 public static ArrayList<AndroidApp> getTopApps()
@@ -29,15 +29,32 @@ public class ViewApps {
 	 	  return AndroidApp.getAll(""); // this is not ready either
 	 }
 
-	 public static ArrayList<AndroidApp> getPurchased(String user)
+	 public static ArrayList<AndroidApp> getPurchased(String userId)
 	 {
-	 	  return AndroidApp.getAll(""); // this is not ready either
+
+	 	  return AndroidApp.getAll("where  appId in  (  select appId from  Downloaded where  userId =  '"+userId+"'  ) "); 
 	 }
 
 	 public static AndroidApp getById(String appId )
 	 {
 	 	return AndroidApp.getByID(appId);
 	 }
+
+	 public static void addAppToInterests( String appId )
+	 {
+	 		if(!(LoginSystem.isLoggedIn))
+		 	{
+		 		return;
+		 	}
+
+		 	Interested i = new Interested(  LoginSystem.loginUser , appId  );
+		 	i.save();
+
+	 }
+
+
+	 
+
 
 	 public static void purchaseApp( String appId )
 	 {
@@ -55,9 +72,16 @@ public class ViewApps {
 	 		return;
 	 	}
 
-	 	// #todo check if purchased
 
-	 	// #todo add to purchased
+
+	 	if( Downloaded.getAll( "WHERE userId = '"+ LoginSystem.loginUser + "' AND appId = '" + appId + "'").size() != 0 )
+	 	{
+	 		System.out.println("Already Downloadd");
+	 		return;
+	 	}
+
+	 	Downloaded d = new Downloaded(  LoginSystem.loginUser , appId  );
+	 	d.save();
 
 	 	loggedInUser.credit -= appToPurchase.price;
 	 	loggedInUser.save();

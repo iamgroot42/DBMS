@@ -12,6 +12,8 @@ public class Interested {
 	String userId;
 	String interest;
 
+	// interest = appId 
+
 	public Interested( )
 	{
 		

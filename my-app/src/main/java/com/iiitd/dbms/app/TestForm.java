@@ -93,18 +93,22 @@ public class TestForm{
         final Button topApps = new Button(shell, SWT.PUSH);
         topApps.setText("topApps");
 
-        final Button allDevelopers = new Button(shell, SWT.PUSH);
-        allDevelopers.setText("allDevelopers");
+        // final Button allDevelopers = new Button(shell, SWT.PUSH);
+        // allDevelopers.setText("allDevelopers");
 
         final Button myPurchased = new Button(shell, SWT.PUSH);
         myPurchased.setText("myPurchased");
+
+        final Button myIntrestedApps = new Button(shell, SWT.PUSH);
+        myIntrestedApps.setText("myIntrestedApps");
 
 
         allApps.addSelectionListener(new SelectionListener() {
 
              public void widgetSelected(SelectionEvent event) {
-                 AndroidApp a = new AndroidApp( "crozzy sity", "divam", "com.ff.ff" ,"s", "String descriptionString descriptionString description", "htto" , 23   );
-                 showApp(a);
+                 // AndroidApp a = new AndroidApp( "crozzy sity", "divam", "com.ff.ff" ,"s", "String descriptionString descriptionString description", "htto" , 23   );
+                 // showApp(a);
+                showTable ( AndroidApp.getAll() , "All Apps ");
               }
 
               public void widgetDefaultSelected(SelectionEvent event) {  }
@@ -131,7 +135,38 @@ public class TestForm{
 
         });
 
-         
+        myPurchased.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showTable(ViewApps.getPurchased(LoginSystem.loginUser) , "My Purchased Apps");
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+         myIntrestedApps.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showTable(ViewApps.getLiked(LoginSystem.loginUser) , "My Whislist");
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+         searchApps.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                    String query = prompt("Enter the Search query ");
+                    showTable(ViewApps.searchApps(query) , "Search Results of "+query);
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+
 
 
         attachShell( shell);
@@ -204,6 +239,48 @@ public class TestForm{
         attachShell( shell);
     }
 
+    public static String prompt(String msg )
+    {
+        Shell shell = new Shell(display);
+        shell.setSize(300, 100);
+        shell.setText("Alert");
+        shell.setLayout(new RowLayout());
+
+
+         Label label1=new Label(shell, SWT.NULL);
+        label1.setText(msg);
+
+        final Text input = new Text(shell, SWT.SHADOW_IN);
+
+
+
+        final Button button = new Button(shell, SWT.PUSH);
+        button.setText("Okay");
+
+        final String[] result = new String[1];
+
+
+       
+
+        button.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                    result[0] = input.getText();
+                    shell.dispose();
+                    
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+       
+        attachShell( shell);
+
+        return result[0] ;
+
+    }
+
 
     public static void showApp(AndroidApp  a )
     {
@@ -228,6 +305,11 @@ public class TestForm{
         final Button buyButton = new Button(shell, SWT.PUSH);
         buyButton.setText("buyButton");
 
+         l = new Label(shell, SWT.NULL);
+        l.setText("Interested");
+        final Button addToInterestsButton = new Button(shell, SWT.PUSH);
+        addToInterestsButton.setText("addToInterests");
+
         l = new Label(shell, SWT.NULL);
         l.setText("Developer");
          final Button developerButton = new Button(shell, SWT.PUSH);
@@ -241,6 +323,8 @@ public class TestForm{
 
          l = new Label(shell, SWT.NULL);
         l.setText("Pakage Name");
+        l = new Label(shell, SWT.NULL);
+        l.setText(a.appId);
 
 
         l = new Label(shell, SWT.NULL);
@@ -252,6 +336,81 @@ public class TestForm{
         l.setText("External Link");
         l = new Label(shell, SWT.NULL);
         l.setText(a.link);
+
+
+        l = new Label(shell, SWT.NULL);
+        l.setText("Rate ! ");
+        final Button rateButton = new Button(shell, SWT.PUSH);
+        rateButton.setText(a.developer);
+
+        l = new Label(shell, SWT.NULL);
+        l.setText("View Ratings  ");
+        final Button viewRatingsButton = new Button(shell, SWT.PUSH);
+        viewRatingsButton.setText(a.developer);
+
+
+        buyButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                    ViewApps.purchaseApp(a.appId);
+             }
+
+             public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+        addToInterestsButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                    ViewApps.addAppToInterests(a.appId);
+             }
+
+             public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+
+        developerButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showTable(ViewApps.getByDeveloper( a.developer ) , "Apps By " + a.developer);
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+        categoryButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showTable(ViewApps.getByCategory( a.category ) , "Apps Of category  " + a.category);
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+        rateButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                  Integer r = Integer.parseInt( prompt("Please Enter the rating")  );
+                  ViewRatings.addRating( r , a.appId , LoginSystem.loginUser   );
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+         viewRatingsButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                  System.out.println( ViewRatings.getRatingsOfApp( a.appId ) ) ;
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
 
 
 
@@ -316,7 +475,7 @@ public class TestForm{
     {
         Shell shell = new Shell(display);
         shell.setSize(300, 200);
-        shell.setText("Register");
+        shell.setText("User Settings");
         shell.setLayout(new GridLayout(2 , true ));
 
 
