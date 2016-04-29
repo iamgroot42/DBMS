@@ -27,20 +27,16 @@ public class ManageApps {
         {
             return;
         }
-        AndroidApp ap = AndroidApp.getByID(appId);
-        if (ap == null)
+        
+        if(AndroidApp.getAll("WHERE appId = '" + appId +"'").size() != 0 )
         {
             System.out.println("Pehle app bana to de be");
         }
-        if ( ap.developer.equals(DeveloperLoginSystem.loginUser) )
-        {
-            ap.delete();
-        }
-        else
-        {
-            System.out.println("Teri app nahi hai be");
-            return;
-        }
+
+        AndroidApp ap = AndroidApp.getByID(appId);
+        ap.delete();
+        
+       
     }
 
     public static void updateApp( String name, String developer, String appId ,String category, String description, String link , Integer price )

@@ -97,6 +97,29 @@ public class AndroidApp {
         }
     }
 
+    public int getDownloads()
+    {
+
+        try{
+
+            String query = "SELECT count(*) FROM Downloaded  WHERE appId = '"+ appId + "'";
+            ResultSet resultSet = DMManager.execQuery(query);
+            if(resultSet.next())
+            {
+                return Integer.parseInt(resultSet.getString(1));
+            }
+
+
+        }
+        catch(Exception e)
+        {
+             e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
     public static ArrayList<AndroidApp> getAll()
     {
         return getAll("");
@@ -139,5 +162,7 @@ public class AndroidApp {
         }
         return r;
     }
+
+
 
 }

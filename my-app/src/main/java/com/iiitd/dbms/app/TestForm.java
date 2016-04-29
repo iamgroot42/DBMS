@@ -102,6 +102,9 @@ public class TestForm{
         final Button myIntrestedApps = new Button(shell, SWT.PUSH);
         myIntrestedApps.setText("myIntrestedApps");
 
+        final Button allRatingsButton = new Button(shell, SWT.PUSH);
+        allRatingsButton.setText("allRatingsButton");
+
 
         allApps.addSelectionListener(new SelectionListener() {
 
@@ -155,6 +158,16 @@ public class TestForm{
 
         });
 
+         allRatingsButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                 showRatings(ViewRatings.getRatingsOfUser( LoginSystem.loginUser  ) , "My All Ratings");
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
          searchApps.addSelectionListener(new SelectionListener() {
 
              public void widgetSelected(SelectionEvent event) {
@@ -189,6 +202,12 @@ public class TestForm{
         final Button addAppButt = new Button(shell, SWT.PUSH);
         addAppButt.setText("Add App");
 
+        final Button viewAppsButton = new Button(shell, SWT.PUSH);
+        viewAppsButton.setText("viewAppsButton");
+
+        final Button addCategoryButton = new Button(shell, SWT.PUSH);
+        addCategoryButton.setText("addCategoryButton");
+
         addAppButt.addSelectionListener(new SelectionListener() {
 
              public void widgetSelected(SelectionEvent event) {
@@ -199,6 +218,25 @@ public class TestForm{
 
         });
 
+        addCategoryButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                 showNewCategoryScreen();
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
+
+        viewAppsButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                showTable(ViewApps.getByDeveloper( DeveloperLoginSystem.loginUser  ) , "My Apps ");
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
 
 
         attachShell( shell);
@@ -348,6 +386,12 @@ public class TestForm{
         final Button viewRatingsButton = new Button(shell, SWT.PUSH);
         viewRatingsButton.setText(a.developer);
 
+         l = new Label(shell, SWT.NULL);
+        l.setText("Total Downloads : ");
+        l = new Label(shell, SWT.NULL);
+        l.setText("" + a.getDownloads() );
+
+
 
         buyButton.addSelectionListener(new SelectionListener() {
 
@@ -401,10 +445,12 @@ public class TestForm{
 
         });
 
+
+
          viewRatingsButton.addSelectionListener(new SelectionListener() {
 
              public void widgetSelected(SelectionEvent event) {
-                  System.out.println( ViewRatings.getRatingsOfApp( a.appId ) ) ;
+                 showRatings(ViewRatings.getRatingsOfApp( a.appId  ) , "All Ratings of " + a.name );
               }
 
               public void widgetDefaultSelected(SelectionEvent event) {  }
@@ -412,6 +458,46 @@ public class TestForm{
         });
 
 
+
+
+        attachShell( shell);
+    }
+
+
+    public static void showNewCategoryScreen()
+    {
+        Shell shell = new Shell(display);
+        shell.setSize(700, 700);
+        shell.setText("New Category");
+        shell.setLayout(new GridLayout( 2 , true ));
+
+        Label l = new Label(shell, SWT.NULL);
+        l.setText("Category Name : ");
+        final Text name = new Text(shell, SWT.SHADOW_IN);
+
+        l = new Label(shell, SWT.NULL);
+        l.setText("Category ID : ");
+        final Text catId = new Text(shell, SWT.SHADOW_IN);
+
+        l = new Label(shell, SWT.NULL);
+        l.setText("Parent Category ID : ");
+        final Text parentId = new Text(shell, SWT.SHADOW_IN);
+
+        final Button doneButton = new Button(shell, SWT.PUSH);
+        doneButton.setText("Done !!! ");
+
+        doneButton.addSelectionListener(new SelectionListener() {
+
+             public void widgetSelected(SelectionEvent event) {
+                  Category c = new Category( catId.getText() ,   name.getText()  , parentId.getText());
+                  c.save();
+                  alert("Category Added! ");
+                  shell.dispose();
+              }
+
+              public void widgetDefaultSelected(SelectionEvent event) {  }
+
+        });
 
 
         attachShell( shell);
@@ -853,11 +939,6 @@ public class TestForm{
         tc8.setWidth(40);
         t.setHeaderVisible(true);
 
-        // Shell child2 = new Shell(s, SWT.TITLE|SWT.SYSTEM_MODAL| SWT.CLOSE | SWT.MAX);
-        // child2.setSize(300, 300);
-        // child2.setLayout(new GridLayout());
-        // child2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        // child2.open();
 
         Button[] buts = new Button[apps.size()+1];
         TableEditor[] colorEditors = new TableEditor[apps.size()+1];
@@ -884,15 +965,75 @@ public class TestForm{
             buts[i].addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent event) {
                 System.out.println("Press detected");
-                showApp(te );
-                // Display app's info
-                // Maybe useful:
-                // Shell child2 = new Shell(s, SWT.TITLE|SWT.SYSTEM_MODAL| SWT.CLOSE | SWT.MAX);
-                // child2.setSize(300, 300);
-                // child2.setLayout(new GridLayout());
-                // child2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-                // child2.open();
-            }
+                     showApp(te );
+
+                }
+            }); 
+            i++;
+        } 
+
+       attachShell(s);
+    }
+
+
+
+     public static void showRatings( ArrayList<Ratings>  ratings, String heading) {
+
+        // Display d = new Display();
+        Shell s = new Shell(display);
+
+        s.setSize(800, 800);        
+        s.setText(heading);
+        s.setLayout(new FillLayout());
+
+        Table t = new Table(s, SWT.BORDER);
+
+        TableColumn tc1 = new TableColumn(t, SWT.CENTER);
+        TableColumn tc2 = new TableColumn(t, SWT.CENTER);
+        TableColumn tc3 = new TableColumn(t, SWT.CENTER);
+        TableColumn tc4 = new TableColumn(t, SWT.CENTER);
+       
+        tc1.setText("AppId");
+        tc2.setText("UserID");
+        tc3.setText("Stars");
+        tc4.setText("View App ");
+
+
+        tc1.setWidth(100);
+        tc2.setWidth(100);
+        tc3.setWidth(50);
+        tc4.setWidth(100);
+
+        t.setHeaderVisible(true);
+
+        Button[] buts = new Button[ratings.size()+1];
+        TableEditor[] colorEditors = new TableEditor[ratings.size()+1];
+
+         int i ;
+        i = 0;
+        for (Ratings te:ratings)
+        {
+            colorEditors[i] = new TableEditor(t);
+            TableItem item = new TableItem(t, SWT.NONE);
+            item.setText(new String[] { te.appId, te.userId, Integer.toString(te.rating) });    
+
+
+            buts[i] = new Button(t, SWT.PUSH);
+
+            buts[i].setText("View");
+            colorEditors[i].grabHorizontal = true;
+            colorEditors[i].minimumHeight = buts[i].getSize().y-5;
+            colorEditors[i].minimumWidth = buts[i].getSize().x;
+
+            colorEditors[i].setEditor(buts[i], item, 3);
+
+          
+            buts[i].addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent event) {
+                System.out.println("Press detected");
+                    showApp(  AndroidApp.getByID( te.appId ) );
+                
+                }
             }); 
             i++;
         } 

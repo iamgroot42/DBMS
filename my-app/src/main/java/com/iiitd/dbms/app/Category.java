@@ -80,7 +80,7 @@ public class Category {
 	public void delete()
 	{
 		try{
-			String query = "DELETE FROM Categpry WHERE categoryId = '"+ categoryId  + "'";
+			String query = "DELETE FROM Category WHERE categoryId = '"+ categoryId  + "'";
 			DMManager.execDDLQuery( query );
 		}
 		catch(Exception e)
